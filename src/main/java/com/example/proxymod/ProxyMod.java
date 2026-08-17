@@ -12,11 +12,11 @@ import java.net.PasswordAuthentication;
 
 public class ProxyMod implements ModInitializer {
 
-    public static boolean proxyEnabled = false;
-    public static String proxyHost = "";
-    public static int proxyPort = 1080;
-    public static String proxyUser = "";
-    public static String proxyPassword = "";
+    public static boolean enabled = false;
+    public static String host = "";
+    public static int port = 1080;
+    public static String username = "";
+    public static String password = "";
 
     private static KeyBinding openGuiKey;
 
@@ -31,18 +31,18 @@ public class ProxyMod implements ModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openGuiKey.wasPressed()) {
-                client.setScreen(new ProxyConfigScreen(null));
+                client.setScreen(new ProxyScreen(null));
             }
         });
     }
 
     public static void applyProxy() {
-        if (proxyEnabled && !proxyHost.isEmpty()) {
-            if (!proxyUser.isEmpty()) {
+        if (enabled && !host.isEmpty()) {
+            if (!username.isEmpty()) {
                 Authenticator.setDefault(new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(proxyUser, proxyPassword.toCharArray());
+                        return new PasswordAuthentication(username, password.toCharArray());
                     }
                 });
             } else {
