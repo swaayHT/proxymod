@@ -6,11 +6,15 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
 public class ProxyMod implements ClientModInitializer {
+    public static final Logger LOGGER = LoggerFactory.getLogger("proxymod");
+
     public static String host = "";
     public static int port = 1080;
     public static String username = "";
@@ -52,12 +56,12 @@ public class ProxyMod implements ClientModInitializer {
             } else {
                 Authenticator.setDefault(null);
             }
-            System.out.println("[ProxyMod] Проксі активовано: " + host + ":" + port);
+            LOGGER.info("[ProxyMod] SOCKS5 proxy set to " + host + ":" + port);
         } else {
             System.clearProperty("socksProxyHost");
             System.clearProperty("socksProxyPort");
             Authenticator.setDefault(null);
-            System.out.println("[ProxyMod] Проксі вимкнено.");
+            LOGGER.info("[ProxyMod] Proxy disabled.");
         }
     }
 }
