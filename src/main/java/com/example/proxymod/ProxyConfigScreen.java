@@ -13,7 +13,6 @@ public class ProxyConfigScreen extends Screen {
     private TextFieldWidget portField;
     private TextFieldWidget userField;
     private TextFieldWidget passField;
-    private ButtonWidget toggleButton;
 
     public ProxyConfigScreen(Screen parent) {
         super(Text.literal("Proxy Settings"));
@@ -26,37 +25,38 @@ public class ProxyConfigScreen extends Screen {
         int startY = this.height / 4;
 
         this.hostField = new TextFieldWidget(this.textRenderer, centerX - 100, startY, 200, 20, Text.literal("IP Address"));
-        this.hostField.setText(ProxyMod.proxyHost);
+        this.hostField.setText(ProxyMod.host);
         this.addSelectableChild(this.hostField);
 
         this.portField = new TextFieldWidget(this.textRenderer, centerX - 100, startY + 30, 200, 20, Text.literal("Port"));
-        this.portField.setText(String.valueOf(ProxyMod.proxyPort));
+        this.portField.setText(String.valueOf(ProxyMod.port));
         this.addSelectableChild(this.portField);
 
         this.userField = new TextFieldWidget(this.textRenderer, centerX - 100, startY + 60, 200, 20, Text.literal("Username"));
-        this.userField.setText(ProxyMod.proxyUser);
+        this.userField.setText(ProxyMod.username);
         this.addSelectableChild(this.userField);
 
         this.passField = new TextFieldWidget(this.textRenderer, centerX - 100, startY + 90, 200, 20, Text.literal("Password"));
-        this.passField.setText(ProxyMod.proxyPassword);
+        this.passField.setText(ProxyMod.password);
         this.addSelectableChild(this.passField);
 
-        this.toggleButton = ButtonWidget.builder(
-                Text.literal("Proxy: " + (ProxyMod.proxyEnabled ? "ENABLED" : "DISABLED")),
+        this.addDrawableChild(ButtonWidget.builder(
+                Text.literal("Проксі: " + (ProxyMod.enabled ? "УВІМКНЕНО" : "ВИМКНЕНО")),
                 button -> {
-                    ProxyMod.proxyEnabled = !ProxyMod.proxyEnabled;
-                    button.setMessage(Text.literal("Proxy: " + (ProxyMod.proxyEnabled ? "ENABLED" : "DISABLED")));
+                    ProxyMod.enabled = !ProxyMod.enabled;
+                    button.setMessage(Text.literal("Проксі: " + (ProxyMod.enabled ? "УВІМКНЕНО" : "ВИМКНЕНО")));
                 }
-        ).dimensions(centerX - 100, startY + 125, 200, 20).build();
-        this.addDrawableChild(this.toggleButton);
+        ).dimensions(centerX - 100, startY + 125, 200, 20).build());
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Save & Apply"), button -> {
-            ProxyMod.proxyHost = this.hostField.getText();
+        this.addDrawableChild(ButtonWidget.builder(Text.literal("Зберегти"), button -> {
+            ProxyMod.host = this.hostField.getText().trim();
             try {
-                ProxyMod.proxyPort = Integer.parseInt(this.portField.getText());
-            } catch (NumberFormatException ignored) {}
-            ProxyMod.proxyUser = this.userField.getText();
-            ProxyMod.proxyPassword = this.passField.getText();
+                ProxyMod.port = Integer.parseInt(this.portField.getText().trim());
+            } catch (NumberFormatException ignored) {
+                ProxyMod.port = 1080;
+            }
+            ProxyMod.username = this.userField.getText().trim();
+            ProxyMod.password = this.passField.getText().trim();
             ProxyMod.applyProxy();
             if (this.client != null) {
                 this.client.setScreen(this.parent);
