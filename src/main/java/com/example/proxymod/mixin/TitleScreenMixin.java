@@ -1,6 +1,6 @@
 package com.example.proxymod.mixin;
 
-import com.example.proxymod.ProxyScreen;
+import com.example.proxymod.ProxyConfigScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
