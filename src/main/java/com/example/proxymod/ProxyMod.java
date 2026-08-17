@@ -31,7 +31,7 @@ public class ProxyMod implements ModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openGuiKey.wasPressed()) {
-                client.setScreen(new ProxyScreen(null));
+                client.setScreen(new ProxyConfigScreen(null));
             }
         });
     }
