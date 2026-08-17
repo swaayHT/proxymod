@@ -35,7 +35,6 @@ public class ClientConnectionMixin {
                         proxyHandler = new Socks5ProxyHandler(proxyAddress);
                     }
 
-                    // Вставляємо SOCKS5 проксі-хендлер на початок Netty пайплайну
                     channel.pipeline().addFirst("proxy", proxyHandler);
                 }
             }
