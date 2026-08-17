@@ -1,6 +1,6 @@
 package com.example.proxymod.mixin;
 
-import com.example.proxymod.ProxyConfigScreen;
+import com.example.proxymod.ProxyScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -19,10 +19,9 @@ public class TitleScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void addProxyButton(CallbackInfo ci) {
-        // Кнопка у лівому верхньому кутку головного меню
         this.addDrawableChild(ButtonWidget.builder(Text.literal("Proxy"), button -> {
             if (this.client != null) {
-                this.client.setScreen(new ProxyConfigScreen(this));
+                this.client.setScreen(new ProxyScreen(this));
             }
         }).dimensions(10, 10, 60, 20).build());
     }
