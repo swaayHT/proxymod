@@ -21,7 +21,7 @@ public class TitleScreenMixin extends Screen {
     private void addProxyButton(CallbackInfo ci) {
         this.addDrawableChild(ButtonWidget.builder(Text.literal("Proxy"), button -> {
             if (this.client != null) {
-                this.client.setScreen(new ProxyScreen(this));
+                this.client.setScreen(new ProxyConfigScreen(this));
             }
         }).dimensions(10, 10, 60, 20).build());
     }
