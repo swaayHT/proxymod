@@ -1,10 +1,12 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.example.proxymod.mixin",
   "compatibilityLevel": "JAVA_17",
-  "client": [
+  "mixins": [
     "ClientConnectionMixin"
+  ],
+  "client": [
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
